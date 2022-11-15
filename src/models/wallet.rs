@@ -22,7 +22,7 @@ impl FlairWallet {
     }
 
     /// List all addresses stored in the wallet
-    pub fn list(&self) -> anyhow::Result<Vec<FlairAddress>> {
+    pub fn _list(&self) -> anyhow::Result<Vec<FlairAddress>> {
         Ok(self.accounts.to_owned().into())
     }
 }

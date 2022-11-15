@@ -3,9 +3,7 @@ use crate::{
     types::WalletType,
 };
 use anyhow::Context;
-use bitcoin::secp256k1::SecretKey;
 use bls_signatures::{PrivateKey as BlsPrivate, Serialize};
-use crypto_wallet_gen::HDPrivKey;
 use fvm_shared::address::Address;
 use libsecp256k1::{PublicKey as SecpPublic, SecretKey as SecpPrivate};
 
@@ -22,27 +20,6 @@ pub fn generate_private(wallet_type: &WalletType) -> anyhow::Result<FlairPrivate
         WalletType::Secp256k1 => {
             let key = SecpPrivate::random(rng);
             Ok(key.serialize().to_vec().into())
-        }
-    }
-}
-
-pub fn generate_private_from_hdkey(
-    wallet_type: &WalletType,
-    kd_key: &HDPrivKey,
-) -> anyhow::Result<FlairPrivate> {
-    match wallet_type {
-        WalletType::Bls => {
-            // let key = kd_key.key_part().to_bytes();
-            let key = kd_key.key_part().to_bytes().to_vec();
-            // let
-            let key = BlsPrivate::from_bytes(&key)?;
-            // let key = BlsPrivate::from_bytes(kd_key.key_part().to_bytes())?;
-            Ok(key.as_bytes().into())
-        }
-        WalletType::Secp256k1 => {
-            // verify
-            let _ = SecretKey::from_slice(kd_key.key_part().to_bytes())?;
-            Ok(kd_key.key_part().to_bytes().to_vec().into())
         }
     }
 }

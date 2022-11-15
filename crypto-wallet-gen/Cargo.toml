@@ -22,7 +22,7 @@ path = "src/main.rs"
 
 [dependencies]
 anyhow = "^1.0.40"
-bitcoin = { workspace = true }
+bitcoin = "^0.26.0"
 clap = "^2.33.3"
 failure = "^0.1.8"
 hex = "^0.4.3"

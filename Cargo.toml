@@ -6,9 +6,6 @@ edition = "2021"
 [workspace]
 members = [".", "./crypto-wallet-gen"]
 
-[workspace.dependencies]
-bitcoin = "^0.26.0"
-
 [dependencies]
 # utils
 rand = "0.8.5"
@@ -37,5 +34,4 @@ fvm_shared = "2.0.0"
 bls-signatures = "0.13.0"
 
 # bitcoin
-bitcoin = { workspace = true }
 tiny-bip39 = "1.0.0"
