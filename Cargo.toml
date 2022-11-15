@@ -1,0 +1,42 @@
+[package]
+name = "flair-wallet"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+members = [".", "./crypto-wallet-gen"]
+
+[workspace.dependencies]
+bitcoin = "^0.26.0"
+
+[dependencies]
+# utils
+rand = "0.8.5"
+num-bigint = "0.2.3"
+num-traits = "0.2.15"
+
+# error
+anyhow = "1.0.66"
+
+# crypto
+base64 = "0.13.1"
+hex = "0.4.3"
+crypto-wallet-gen = { path = "./crypto-wallet-gen" }
+libsecp256k1 = "0.7.1"
+rust-crypto = "0.2.36"
+
+#serde
+serde = { version = "1.0.147", features = ["derive"] }
+serde_json = "1.0.87"
+
+# cli
+structopt = "0.3.26"
+
+# fil
+fvm_shared = "2.0.0"
+bls-signatures = "0.13.0"
+
+# bitcoin
+bitcoin = { workspace = true }
+tiny-bip39 = "1.0.0"
+sha2 = "0.10.6"
