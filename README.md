@@ -1,7 +1,7 @@
 # Flair-wallet
 Flair-wallet is wallet releated part of our actively developing tool Flair for filecoin infrastructure.
 
-## Note: still under develop. DO NOT USE IN PRODUCTION!
+## Note: still under development. DO NOT USE IN PRODUCTION!
 
 Filecoin wallet can be generated from bls and secp256k1 algorithm. We implement account generation and import/export for both methods. 
 
