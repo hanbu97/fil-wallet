@@ -1,5 +1,6 @@
 use bip39::{Language, Mnemonic, MnemonicType, Seed};
 
+use crypto::{digest::Digest, sha2::Sha256};
 use crypto_wallet_gen::{Bip39Mnemonic, Bip44DerivationPath, MnemonicFactory};
 use num_bigint::BigUint;
 use num_traits::{FromPrimitive, Num, Pow};
@@ -74,11 +75,9 @@ pub fn derive_master_key(seed: &[u8]) -> anyhow::Result<Vec<u8>> {
 }
 
 fn hkdf(ikm: &[u8], salt: &[u8], info: &[u8], okm: &mut [u8]) {
-    use crypto::{
-        hkdf::{hkdf_expand, hkdf_extract},
-        sha2::Sha256,
-    };
-    let digest = Sha256::new();
+    use crypto::hkdf::{hkdf_expand, hkdf_extract};
+    let mut digest = Sha256::new();
+    digest.reset();
     let prk: &mut [u8] = &mut [0u8; 32];
     hkdf_extract(digest, salt, ikm, prk);
     hkdf_expand(digest, prk, info, okm);
@@ -88,15 +87,17 @@ pub fn hkdf_mod_r(ikm: &[u8]) -> Vec<u8> {
     let mut ikm = ikm.to_vec();
     ikm.push(0);
 
-    use sha2::{Digest, Sha256};
     let salt = "BLS-SIG-KEYGEN-SALT-".as_bytes().to_vec();
     let mut hasher = Sha256::new();
-    hasher.update(salt);
-    let result = hasher.finalize();
-    let salt = &result[..];
+    hasher.reset();
+    hasher.input(&salt);
+    let mut result: Vec<u8> = vec![0; hasher.output_bytes()];
+    hasher.result(&mut result);
+    let salt = result;
+    // let salt = &result[..];
 
     let mut okm = [0u8; 48];
-    hkdf(&ikm, salt, &[0, 48], &mut okm);
+    hkdf(&ikm, &salt, &[0, 48], &mut okm);
 
     let r = BigUint::from_str_radix(
         "73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001",
@@ -125,8 +126,6 @@ fn flip_bits(num: &[u8]) -> BigUint {
 }
 
 fn parent_sk_to_lamport_pk(ikm: &[u8], index: u32) -> Vec<u8> {
-    use crypto::digest::Digest;
-    use crypto::sha2::Sha256;
     let salt = index.to_be_bytes();
 
     let mut lamport_0 = [[0u8; DIGEST_SIZE]; NUM_DIGESTS];
@@ -209,7 +208,6 @@ fn gen_account(phrase: &str, password: &str) -> anyhow::Result<FlairAccount> {
 
     // Secp256k1
     let derived = master_key.derive(derivation_path)?;
-    // derive_key(&master_key, derivation_path.clone(), wallet_type)?;
     let private_key: FlairPrivate = derived.key_part().into_bytes().into();
     let account = generate_account_from_private(&WalletType::Secp256k1, &private_key)?;
 

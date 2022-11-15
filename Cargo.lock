@@ -730,7 +730,6 @@ dependencies = [
  "rust-crypto",
  "serde",
  "serde_json",
- "sha2 0.10.6",
  "structopt",
  "tiny-bip39 1.0.0",
 ]

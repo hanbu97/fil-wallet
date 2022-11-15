@@ -20,15 +20,17 @@ fn main() {
     );
     assert_eq!(out_scep.as_str(), in_scep);
 
-    let secret_phrase = SecretPhrase::generate(Language::English,  MnemonicType::Words12);
+    let secret_phrase = SecretPhrase::generate(Language::English, MnemonicType::Words12);
     println!("secret_phrase: {}", secret_phrase.phrase());
-    
+
     let account_secp = secret_phrase
         .derive_account(WalletType::Secp256k1, None)
         .unwrap();
     println!("Secp256k1 account: {}", account_secp.display());
-    
+
     let account_bls = secret_phrase.derive_account(WalletType::Bls, None).unwrap();
     println!("Bls account: {}", account_bls.display());
-
 }
+// secret_phrase: bring certain hover weekend purity whisper tooth recall blush jump aspect drama
+// Secp256k1 account: f1x6l4c645ze63at7t7a6jdbqsmicugnafz3wldjq
+// Bls account: f3qnkltr6t5me22jbickzoaj4gelk36htw3cms7f2j5vmnzi7uix4yex3ogqmoivu67c6y3sokh6a2pd3sdp4q
