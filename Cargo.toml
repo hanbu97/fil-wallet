@@ -21,6 +21,7 @@ hex = "0.4.3"
 crypto-wallet-gen = { path = "./crypto-wallet-gen" }
 libsecp256k1 = "0.7.1"
 rust-crypto = "0.2.36"
+blake2b_simd = "1.0"
 
 #serde
 serde = { version = "1.0.147", features = ["derive"] }
@@ -35,3 +36,4 @@ bls-signatures = "0.13.0"
 
 # bitcoin
 tiny-bip39 = "1.0.0"
+cid = "0.10.0"

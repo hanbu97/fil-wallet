@@ -1,5 +1,20 @@
+use blake2b_simd::Params;
+use bls_signatures::{PrivateKey as BlsPrivate, Serialize as BlsSerialize};
 use fvm_shared::address::Address;
+use libsecp256k1::{Message as SecpMessage, PublicKey as SecpPublic, SecretKey as SecpPrivate};
 use serde::{Deserialize, Serialize};
+
+pub fn blake2b_256(ingest: &[u8]) -> [u8; 32] {
+    let digest = Params::new()
+        .hash_length(32)
+        .to_state()
+        .update(ingest)
+        .finalize();
+
+    let mut ret = [0u8; 32];
+    ret.clone_from_slice(digest.as_bytes());
+    ret
+}
 
 use crate::{
     helpers::accounts::{
@@ -16,7 +31,7 @@ pub struct FlairPrivate {
     #[serde(rename = "PrivateKey")]
     private_key: String,
     #[serde(skip_serializing)]
-    data: Vec<u8>,
+    pub data: Vec<u8>,
 }
 
 impl From<Vec<u8>> for FlairPrivate {
@@ -69,7 +84,7 @@ impl From<Address> for FlairAddress {
 #[derive(Debug)]
 pub struct FlairAccount {
     wallet_type: WalletType,
-    private: Option<FlairPrivate>,
+    pub private: Option<FlairPrivate>,
     public: Option<FlairPublic>,
     address: FlairAddress,
 }
@@ -143,6 +158,40 @@ impl FlairAccount {
     /// import filecoin format private key
     pub fn import(key: &str) -> anyhow::Result<Self> {
         generate_account_from_encoded_string(key)
+    }
+
+    /// sign message
+    pub fn sign(&self, cid: String) -> anyhow::Result<String> {
+        match &self.private {
+            Some(private_key) => {
+                let private_key = private_key.to_vec();
+                let cid: cid::Cid = cid.parse()?;
+                let msg = cid.to_bytes().to_vec();
+
+                match self.wallet_type {
+                    WalletType::Bls => {
+                        let priv_key = BlsPrivate::from_bytes(&private_key)?;
+                        let sig = priv_key.sign(&msg).as_bytes();
+                        let out = base64::encode(&sig);
+                        Ok(out)
+                    }
+                    WalletType::Secp256k1 => {
+                        let priv_key = SecpPrivate::parse_slice(&private_key)?;
+                        let msg_hash = blake2b_256(&msg);
+                        let message = SecpMessage::parse(&msg_hash);
+                        let (sig, recovery_id) = libsecp256k1::sign(&message, &priv_key);
+                        let mut new_bytes = [0; 65];
+                        new_bytes[..64].copy_from_slice(&sig.serialize());
+                        new_bytes[64] = recovery_id.serialize();
+
+                        let out = new_bytes.to_vec();
+                        let out = base64::encode(&out);
+                        Ok(out)
+                    }
+                }
+            }
+            None => Err(anyhow::anyhow!("Not Authourized Account")),
+        }
     }
 }
 

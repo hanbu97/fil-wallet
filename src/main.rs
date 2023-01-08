@@ -34,3 +34,15 @@ fn main() {
 // secret_phrase: bring certain hover weekend purity whisper tooth recall blush jump aspect drama
 // Secp256k1 account: f1x6l4c645ze63at7t7a6jdbqsmicugnafz3wldjq
 // Bls account: f3qnkltr6t5me22jbickzoaj4gelk36htw3cms7f2j5vmnzi7uix4yex3ogqmoivu67c6y3sokh6a2pd3sdp4q
+
+// mpool_push_message
+#[test]
+fn test_signature() {
+    let in_bls = "7b2254797065223a22626c73222c22507269766174654b6579223a2270657341657756666d382f6f7a574c736b6f767a7464677a62566d73677657695a70506f346d53367269493d227d";
+    let account = FlairAccount::import(in_bls).unwrap();
+    let cid_string = "bafy2bzacec6m3lsogelnttnn4ck7dr35zpyuynqaliiqycx4zraqmqmjebc36".to_string();
+
+
+    let signature = account.sign(cid_string).unwrap();
+    dbg!(signature);
+}
