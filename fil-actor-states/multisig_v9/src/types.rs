@@ -72,12 +72,6 @@ pub struct ConstructorParams {
     pub start_epoch: ChainEpoch,
 }
 
-// #[derive(Serialize_tuple, Deserialize_tuple)]
-// pub struct MultisigParams {
-//     CodeCID: String,
-//     ConstructorParams: ConstructorParams,
-// }
-
 /// Propose method call parameters.
 #[derive(Serialize_tuple, Deserialize_tuple)]
 pub struct ProposeParams {

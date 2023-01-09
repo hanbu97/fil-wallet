@@ -1,10 +1,5 @@
-use std::str::FromStr;
-
 use bip39::{Language, MnemonicType};
-use fil_actor_multisig_v9::ConstructorParams;
-use flair_wallet::{FlairAccount, FlairAddress, SecretPhrase, WalletType};
-use fvm_shared::{address::Address, clock::ChainEpoch};
-use serde_json::{json, Value};
+use flair_wallet::{FlairAccount, SecretPhrase, WalletType};
 
 fn main() {
     let in_bls = "7b2254797065223a22626c73222c22507269766174654b6579223a226b434b523969566b73615a6672746b513979356e3269615862317279766d314d37637357456352313142673d227d";
@@ -50,46 +45,11 @@ fn test_signature() {
     let signature = account.sign(cid_string).unwrap();
     dbg!(signature);
 }
-// use fvm_ipld_encoding::tuple::{Deserialize_tuple, Serialize_tuple};
-// #[derive(Serialize_tuple, Deserialize_tuple)]
-pub struct MultisigParams {
-    CodeCID: Value,
-    ConstructorParams: ConstructorParams,
-}
 
-pub fn create_multisig_constructor_params(addresses: Vec<String>) -> String {
-    let signers = addresses
-        .iter()
-        .map(|t| Address::from_str(t).unwrap())
-        .collect();
-
-    let unlock_duration: ChainEpoch = 0;
-    let start_epoch: ChainEpoch = 0;
-
-    let msig_params = ConstructorParams {
-        signers,
-        num_approvals_threshold: 2,
-        unlock_duration,
-        start_epoch,
-    };
-
-    // let t = MultisigParams {
-    //     CodeCID: json!({
-    //         "/": "bafk2bzacec6gmi7ucukr3bk67akaxwngohw3lsg3obvdazhmfhdzflkszk3tg" 
-    //     }),
-    //     ConstructorParams: msig_params
-    // };
-
-
-    let t = fvm_ipld_encoding::to_vec(&msig_params).unwrap();
-    let cbor = base64::encode(&t);
-    cbor
-}
-
+// gtgqWCcAAVWg5AIgvGYj9BUVHYVe+BQL2aZx7bXI23BqMGTsKceSrVLKtzNYnoSDWDEDhSwOVinCv/zALyBAterrIxZMiGVyyXgpHEAWBlYL+QD9U9HGRcoXJKYeuaOxo54ZWDEDhiDZ5UCLX5N7xhGdNz2DoIsC1qc3yE+v0QL7cOUMOXsIjpQsrkZRcQ6yVI2PHUswWDEDkf4Sufdd3gucMcTF3kIWASmJ5W8uN+RS6VNTVm8CT8lgJC0kamMV0LK5c6RvqrvAAgAA
 mod test {
-    use fvm_ipld_encoding::tuple::{Deserialize_tuple, Serialize_tuple};
+    use flair_wallet::create_multisig_constructor_params;
 
-    use crate::create_multisig_constructor_params;
 
     #[test]
     fn test_multisig() {
