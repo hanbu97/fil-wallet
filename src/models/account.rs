@@ -1,7 +1,7 @@
 use blake2b_simd::Params;
 use bls_signatures::{PrivateKey as BlsPrivate, Serialize as BlsSerialize};
 use fvm_shared::address::Address;
-use libsecp256k1::{Message as SecpMessage, PublicKey as SecpPublic, SecretKey as SecpPrivate};
+use libsecp256k1::{Message as SecpMessage, SecretKey as SecpPrivate};
 use serde::{Deserialize, Serialize};
 
 pub fn blake2b_256(ingest: &[u8]) -> [u8; 32] {

@@ -46,3 +46,9 @@ fn test_signature() {
     let signature = account.sign(cid_string).unwrap();
     dbg!(signature);
 }
+
+#[test]
+fn test_multisig() {
+    // let msig_params = fil_actors_runtime_v9::
+    
+}

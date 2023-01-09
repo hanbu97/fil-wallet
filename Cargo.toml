@@ -33,6 +33,7 @@ structopt = "0.3.26"
 # fil
 fvm_shared = "2.0.0"
 bls-signatures = "0.13.0"
+fil_actors_runtime_v9 = { git = "https://github.com/ChainSafe/fil-actor-states" }
 
 # bitcoin
 tiny-bip39 = "1.0.0"
