@@ -6,18 +6,23 @@ use fvm_shared::{address::Address, clock::ChainEpoch};
 use fil_actor_multisig_v9::ConstructorParams;
 
 // return params string
-pub fn create_multisig_params(addresses: Vec<String>) -> String {
+pub fn create_multisig_params(
+    addresses: Vec<String>,
+    threshold: u64,
+    unlock_duration: i64,
+    start_epoch: i64,
+) -> String {
     let signers = addresses
         .iter()
         .map(|t| Address::from_str(t).unwrap())
         .collect();
 
-    let unlock_duration: ChainEpoch = 0;
-    let start_epoch: ChainEpoch = 0;
+    let unlock_duration: ChainEpoch = unlock_duration;
+    let start_epoch: ChainEpoch = start_epoch;
 
     let msig_params = ConstructorParams {
         signers,
-        num_approvals_threshold: 2,
+        num_approvals_threshold: threshold,
         unlock_duration,
         start_epoch,
     };
