@@ -5,7 +5,8 @@ use fvm_shared::{address::Address, clock::ChainEpoch};
 
 use fil_actor_multisig_v9::ConstructorParams;
 
-pub fn create_multisig_constructor_params(addresses: Vec<String>) -> String {
+// return params string
+pub fn create_multisig_params(addresses: Vec<String>) -> String {
     let signers = addresses
         .iter()
         .map(|t| Address::from_str(t).unwrap())
