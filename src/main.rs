@@ -43,30 +43,22 @@ fn test_signature() {
     let cid_string = "bafy2bzacec6m3lsogelnttnn4ck7dr35zpyuynqaliiqycx4zraqmqmjebc36".to_string();
 
     let signature = account.sign(cid_string).unwrap();
-    dbg!(signature);
+    assert_eq!("iKKZhRQkg2qQ8fWWIMFFHjJSAWaOgIkvVSAJ4aZ0pL2fPeMOsSzOoqqfE9mj/qtCDAfeDWCgvVzTwVvSNNt5jL+LPwSSGinfHtO01urO0vuOq2EUCVcgH57ftzf5SAJT",&signature);
 }
 
-// gtgqWCcAAVWg5AIgvGYj9BUVHYVe+BQL2aZx7bXI23BqMGTsKceSrVLKtzNYnoSDWDEDhSwOVinCv/zALyBAterrIxZMiGVyyXgpHEAWBlYL+QD9U9HGRcoXJKYeuaOxo54ZWDEDhiDZ5UCLX5N7xhGdNz2DoIsC1qc3yE+v0QL7cOUMOXsIjpQsrkZRcQ6yVI2PHUswWDEDkf4Sufdd3gucMcTF3kIWASmJ5W8uN+RS6VNTVm8CT8lgJC0kamMV0LK5c6RvqrvAAgAA
+//
 mod test {
-    use flair_wallet::create_multisig_constructor_params;
-
-
     #[test]
     fn test_multisig() {
-        use fvm_ipld_encoding::{serde_bytes, Cbor, RawBytes};
-        use fvm_shared::address::Address;
-        use fvm_shared::clock::ChainEpoch;
-        use std::str::FromStr;
-
         let addresses = vec![
             "t3quwa4vrjyk77zqbpeball2xlemlezcdfolexqki4ialamvql7eap2u6ryzc4ufzeuyplti5ruopbtansv63q".to_string(),
             "t3qyqntzkarnpzg66gcgotopmducfqfvvhg7ee7l6ral5xbzimhf5qrduufsxemulrb2zfjdmpdvftaljzuhva".to_string(),
             "t3sh7bfopxlxpaxhbrytc54qqwaeuytzlpfy36iuxjknjvm3ycj7ewajbnervggfoqwk4xhjdpvk54bpiesaya".to_string(),
         ];
-        let cbor = create_multisig_constructor_params(addresses);
-
-        dbg!(cbor);
-
-        // let t = msig_param
+        let cbor = flair_wallet::create_multisig_params(addresses);
+        assert_eq!(
+            r#"gtgqWCcAAVWg5AIgvGYj9BUVHYVe+BQL2aZx7bXI23BqMGTsKceSrVLKtzNYnoSDWDEDhSwOVinCv/zALyBAterrIxZMiGVyyXgpHEAWBlYL+QD9U9HGRcoXJKYeuaOxo54ZWDEDhiDZ5UCLX5N7xhGdNz2DoIsC1qc3yE+v0QL7cOUMOXsIjpQsrkZRcQ6yVI2PHUswWDEDkf4Sufdd3gucMcTF3kIWASmJ5W8uN+RS6VNTVm8CT8lgJC0kamMV0LK5c6RvqrvAAgAA"#,
+            &cbor
+        );
     }
 }
