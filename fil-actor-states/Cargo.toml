@@ -1,31 +1,3 @@
-[workspace]
-members = [
-  "runtime_v8",
-  "runtime_v9",
-  "account_v8",
-  "account_v9",
-  "init_v8",
-  "init_v9",
-  "cron_v8",
-  "cron_v9",
-  "paych_v8",
-  "system_v8",
-  "system_v9",
-  "multisig_v8",
-  "multisig_v9",
-  "market_v8",
-  "market_v9",
-  "power_v8",
-  "reward_v8",
-  "paych_v9",
-  "power_v9",
-  "reward_v9",
-  "verifreg_v8",
-  "verifreg_v9",
-  "miner_v8",
-  "miner_v9",
-]
-resolver = "2"
 
 [workspace.dependencies]
 anyhow = "1.0"

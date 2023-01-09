@@ -1,5 +1,10 @@
+use std::str::FromStr;
+
 use bip39::{Language, MnemonicType};
-use flair_wallet::{FlairAccount, SecretPhrase, WalletType};
+use fil_actor_multisig_v9::ConstructorParams;
+use flair_wallet::{FlairAccount, FlairAddress, SecretPhrase, WalletType};
+use fvm_shared::{address::Address, clock::ChainEpoch};
+use serde_json::{json, Value};
 
 fn main() {
     let in_bls = "7b2254797065223a22626c73222c22507269766174654b6579223a226b434b523969566b73615a6672746b513979356e3269615862317279766d314d37637357456352313142673d227d";
@@ -42,13 +47,66 @@ fn test_signature() {
     let account = FlairAccount::import(in_bls).unwrap();
     let cid_string = "bafy2bzacec6m3lsogelnttnn4ck7dr35zpyuynqaliiqycx4zraqmqmjebc36".to_string();
 
-
     let signature = account.sign(cid_string).unwrap();
     dbg!(signature);
 }
+// use fvm_ipld_encoding::tuple::{Deserialize_tuple, Serialize_tuple};
+// #[derive(Serialize_tuple, Deserialize_tuple)]
+pub struct MultisigParams {
+    CodeCID: Value,
+    ConstructorParams: ConstructorParams,
+}
 
-#[test]
-fn test_multisig() {
-    // let msig_params = fil_actors_runtime_v9::
-    
+pub fn create_multisig_constructor_params(addresses: Vec<String>) -> String {
+    let signers = addresses
+        .iter()
+        .map(|t| Address::from_str(t).unwrap())
+        .collect();
+
+    let unlock_duration: ChainEpoch = 0;
+    let start_epoch: ChainEpoch = 0;
+
+    let msig_params = ConstructorParams {
+        signers,
+        num_approvals_threshold: 2,
+        unlock_duration,
+        start_epoch,
+    };
+
+    // let t = MultisigParams {
+    //     CodeCID: json!({
+    //         "/": "bafk2bzacec6gmi7ucukr3bk67akaxwngohw3lsg3obvdazhmfhdzflkszk3tg" 
+    //     }),
+    //     ConstructorParams: msig_params
+    // };
+
+
+    let t = fvm_ipld_encoding::to_vec(&msig_params).unwrap();
+    let cbor = base64::encode(&t);
+    cbor
+}
+
+mod test {
+    use fvm_ipld_encoding::tuple::{Deserialize_tuple, Serialize_tuple};
+
+    use crate::create_multisig_constructor_params;
+
+    #[test]
+    fn test_multisig() {
+        use fvm_ipld_encoding::{serde_bytes, Cbor, RawBytes};
+        use fvm_shared::address::Address;
+        use fvm_shared::clock::ChainEpoch;
+        use std::str::FromStr;
+
+        let addresses = vec![
+            "t3quwa4vrjyk77zqbpeball2xlemlezcdfolexqki4ialamvql7eap2u6ryzc4ufzeuyplti5ruopbtansv63q".to_string(),
+            "t3qyqntzkarnpzg66gcgotopmducfqfvvhg7ee7l6ral5xbzimhf5qrduufsxemulrb2zfjdmpdvftaljzuhva".to_string(),
+            "t3sh7bfopxlxpaxhbrytc54qqwaeuytzlpfy36iuxjknjvm3ycj7ewajbnervggfoqwk4xhjdpvk54bpiesaya".to_string(),
+        ];
+        let cbor = create_multisig_constructor_params(addresses);
+
+        dbg!(cbor);
+
+        // let t = msig_param
+    }
 }
