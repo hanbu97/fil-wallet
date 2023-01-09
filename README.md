@@ -67,6 +67,32 @@ Bls account: f3uvn2j4mgp2tz3oiinh3jwnepy6zhhsd76ngec6dgwf5e2wdnfl3ylu7bgqa6jkbqv
 
 For the key derivation part of bls(f3) account, is based on https://iancoleman.io/eip2333/ , making our derived secret key the same. But still have invalid keys, when invalid key occurs, we increase the last index of derive path(use index) to find the first valid secret key for bls signature.
 
+### Signature
+``` rust
+let in_bls = "7b2254797065223a22626c73222c22507269766174654b6579223a2270657341657756666d382f6f7a574c736b6f767a7464677a62566d73677657695a70506f346d53367269493d227d";
+let account = FlairAccount::import(in_bls).unwrap();
+let cid_string = "bafy2bzacec6m3lsogelnttnn4ck7dr35zpyuynqaliiqycx4zraqmqmjebc36".to_string();
+
+let signature = account.sign(cid_string).unwrap();
+assert_eq!("iKKZhRQkg2qQ8fWWIMFFHjJSAWaOgIkvVSAJ4aZ0pL2fPeMOsSzOoqqfE9mj/qtCDAfeDWCgvVzTwVvSNNt5jL+LPwSSGinfHtO01urO0vuOq2EUCVcgH57ftzf5SAJT",&signature);
+
+```
+
+### multisig
+- construct params
+``` rust
+let addresses = vec![
+    "t3quwa4vrjyk77zqbpeball2xlemlezcdfolexqki4ialamvql7eap2u6ryzc4ufzeuyplti5ruopbtansv63q".to_string(),
+    "t3qyqntzkarnpzg66gcgotopmducfqfvvhg7ee7l6ral5xbzimhf5qrduufsxemulrb2zfjdmpdvftaljzuhva".to_string(),
+    "t3sh7bfopxlxpaxhbrytc54qqwaeuytzlpfy36iuxjknjvm3ycj7ewajbnervggfoqwk4xhjdpvk54bpiesaya".to_string(),
+];
+let cbor = flair_wallet::create_multisig_params(addresses);
+assert_eq!(
+    r#"gtgqWCcAAVWg5AIgvGYj9BUVHYVe+BQL2aZx7bXI23BqMGTsKceSrVLKtzNYnoSDWDEDhSwOVinCv/zALyBAterrIxZMiGVyyXgpHEAWBlYL+QD9U9HGRcoXJKYeuaOxo54ZWDEDhiDZ5UCLX5N7xhGdNz2DoIsC1qc3yE+v0QL7cOUMOXsIjpQsrkZRcQ6yVI2PHUswWDEDkf4Sufdd3gucMcTF3kIWASmJ5W8uN+RS6VNTVm8CT8lgJC0kamMV0LK5c6RvqrvAAgAA"#,
+    &cbor
+);
+```
+
 ## Todo
 - Remove unnecessary dependencies
 - add more tests and use cases
