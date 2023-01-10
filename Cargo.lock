@@ -574,7 +574,6 @@ dependencies = [
  "secp256k1 0.20.3",
  "thiserror",
  "tiny-bip39 0.8.2",
- "trompt",
  "unicode-normalization",
  "wagyu-ethereum",
  "wagyu-model",
@@ -2407,15 +2406,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "55937e1799185b12863d447f42597ed69d9928686b8d88a1df17376a097d8369"
 
 [[package]]
-name = "termios"
-version = "0.2.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d5d9cf598a6d7ce700a4e6a9199da127e6819a61e64b68609683cc9a01b5683a"
-dependencies = [
- "libc",
-]
-
-[[package]]
 name = "textwrap"
 version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2545,16 +2535,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d82e1a7758622a465f8cee077614c73484dac5b836c02ff6a40d5d1010324d7"
 dependencies = [
  "serde",
-]
-
-[[package]]
-name = "trompt"
-version = "0.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c42ad6f732153ea4980d81e653c80a7e573c1cc0d2a65fe31d4274526ce426d5"
-dependencies = [
- "libc",
- "termios",
 ]
 
 [[package]]
