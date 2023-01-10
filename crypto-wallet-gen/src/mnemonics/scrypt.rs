@@ -14,11 +14,11 @@ pub struct ScryptMnemonic {
 }
 
 impl MnemonicFactory for ScryptMnemonic {
-    fn generate() -> Result<Self> {
-        Ok(Self {
-            phrase: Bip39Mnemonic::generate()?.into_phrase(),
-        })
-    }
+    // fn generate() -> Result<Self> {
+    //     Ok(Self {
+    //         phrase: Bip39Mnemonic::generate()?.into_phrase(),
+    //     })
+    // }
 
     fn from_phrase(phrase: &str) -> Result<Self> {
         Self::validate(phrase)?;
@@ -198,16 +198,16 @@ mod tests {
             "my password");
     }
 
-    #[test]
-    fn generated_phrase_is_24_words() {
-        let phrase = ScryptMnemonic::generate().unwrap().into_phrase();
-        assert_eq!(23, phrase.chars().filter(|a| *a == ' ').count());
-    }
+    // #[test]
+    // fn generated_phrase_is_24_words() {
+    //     let phrase = ScryptMnemonic::generate().unwrap().into_phrase();
+    //     assert_eq!(23, phrase.chars().filter(|a| *a == ' ').count());
+    // }
 
-    #[test]
-    fn generated_phrase_is_valid() {
-        ScryptMnemonic::validate(ScryptMnemonic::generate().unwrap().phrase()).unwrap();
-    }
+    // #[test]
+    // fn generated_phrase_is_valid() {
+    //     ScryptMnemonic::validate(ScryptMnemonic::generate().unwrap().phrase()).unwrap();
+    // }
 
     #[test]
     fn validate_valid_24word_phrase() {

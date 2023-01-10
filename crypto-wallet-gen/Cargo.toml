@@ -31,7 +31,6 @@ rand_chacha = "^0.3.0"
 rand_core_5 = { version = "^0.5.1", package = "rand_core" }
 rand_hc = "^0.3.0"
 rand_jitter = "^0.3.0"
-rdrand = "^0.8.0"
 scrypt = "^0.7.0"
 secp256k1 = "^0.20.2"
 secp256k1_17 = { version = "^0.17.2", package = "secp256k1" }

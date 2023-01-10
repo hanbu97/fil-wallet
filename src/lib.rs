@@ -47,6 +47,6 @@ pub fn message_cid(
 
 #[test]
 fn test_strinl() {
-    let t= "f4e45b9a033ae3b1bd2b15ecea2a9810";
+    let t = "f4e45b9a033ae3b1bd2b15ecea2a9810";
     dbg!(t.len());
 }

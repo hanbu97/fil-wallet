@@ -3,7 +3,7 @@ use anyhow::Result;
 use crate::bip32::HDPrivKey;
 
 pub trait MnemonicFactory: Sized {
-    fn generate() -> Result<Self>;
+    // fn generate() -> Result<Self>;
     fn from_phrase(phrase: &str) -> Result<Self>;
 
     /// Validate a mnemonic phrase

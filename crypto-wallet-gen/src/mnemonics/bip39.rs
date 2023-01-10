@@ -4,7 +4,7 @@ use rand::RngCore;
 
 use super::{Mnemonic, MnemonicFactory};
 use crate::bip32::HDPrivKey;
-use crate::random::secure_rng;
+// use crate::random::secure_rng;
 use crate::seed::Seed;
 
 const LANG: Language = Language::English;
@@ -16,15 +16,15 @@ pub struct Bip39Mnemonic {
 }
 
 impl MnemonicFactory for Bip39Mnemonic {
-    fn generate() -> Result<Self> {
-        const ENTROPY_LENGTH: usize = 32;
-        // XOR an OS rng and a pseudo rng to get our entropy. Probably not necessary but doesn't hurt either.
-        let mut rng = secure_rng()?;
-        let mut entropy: [u8; ENTROPY_LENGTH] = [0; ENTROPY_LENGTH];
-        rng.fill_bytes(&mut entropy);
-        let mnemonic = _Mnemonic::from_entropy(&entropy, LANG).expect("Invalid key length");
-        Ok(Self { mnemonic })
-    }
+    // fn generate() -> Result<Self> {
+    //     const ENTROPY_LENGTH: usize = 32;
+    //     // XOR an OS rng and a pseudo rng to get our entropy. Probably not necessary but doesn't hurt either.
+    //     let mut rng = secure_rng()?;
+    //     let mut entropy: [u8; ENTROPY_LENGTH] = [0; ENTROPY_LENGTH];
+    //     rng.fill_bytes(&mut entropy);
+    //     let mnemonic = _Mnemonic::from_entropy(&entropy, LANG).expect("Invalid key length");
+    //     Ok(Self { mnemonic })
+    // }
 
     fn from_phrase(phrase: &str) -> Result<Self> {
         let mnemonic = _Mnemonic::from_phrase(phrase, LANG)?;
@@ -156,16 +156,16 @@ mod tests {
             "my password");
     }
 
-    #[test]
-    fn generated_phrase_is_24_words() {
-        let phrase = Bip39Mnemonic::generate().unwrap().into_phrase();
-        assert_eq!(23, phrase.chars().filter(|a| *a == ' ').count());
-    }
+    // #[test]
+    // fn generated_phrase_is_24_words() {
+    //     let phrase = Bip39Mnemonic::generate().unwrap().into_phrase();
+    //     assert_eq!(23, phrase.chars().filter(|a| *a == ' ').count());
+    // }
 
-    #[test]
-    fn generated_phrase_is_valid() {
-        Bip39Mnemonic::validate(Bip39Mnemonic::generate().unwrap().phrase()).unwrap();
-    }
+    // #[test]
+    // fn generated_phrase_is_valid() {
+    //     Bip39Mnemonic::validate(Bip39Mnemonic::generate().unwrap().phrase()).unwrap();
+    // }
 
     #[test]
     fn validate_valid_24word_phrase() {

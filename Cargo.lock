@@ -568,7 +568,6 @@ dependencies = [
  "rand_core 0.5.1",
  "rand_hc 0.3.1",
  "rand_jitter",
- "rdrand 0.8.2",
  "scrypt",
  "secp256k1 0.17.2",
  "secp256k1 0.20.3",
@@ -1874,7 +1873,7 @@ dependencies = [
  "fuchsia-cprng",
  "libc",
  "rand_core 0.3.1",
- "rdrand 0.4.0",
+ "rdrand",
  "winapi",
 ]
 
@@ -2015,15 +2014,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "678054eb77286b51581ba43620cc911abf02758c91f93f479767aed0f90458b2"
 dependencies = [
  "rand_core 0.3.1",
-]
-
-[[package]]
-name = "rdrand"
-version = "0.8.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e233b642160555c1aa1ff7a78443c6139342f411b6fa6602af2ebbfee9e166bb"
-dependencies = [
- "rand_core 0.6.4",
 ]
 
 [[package]]
