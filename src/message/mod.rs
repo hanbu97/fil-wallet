@@ -22,7 +22,7 @@ pub fn get_message_cid(
     let from = Address::from_str(&from).unwrap();
     let to = Address::from_str(&to).unwrap();
     let value = string_to_tokenamount(&value);
-    let params = base64::decode(&params).unwrap();
+    let params = base64::decode(params).unwrap();
     let params: RawBytes = params.into();
     let gas_fee_cap = string_to_tokenamount(&gas_fee_cap);
     let gas_premium = string_to_tokenamount(&gas_premium);

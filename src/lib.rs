@@ -20,6 +20,7 @@ pub fn multisig_approve_params(txnid: i64) -> String {
     approve_multisig_params(txnid)
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn message_cid(
     from: String,
     to: String,

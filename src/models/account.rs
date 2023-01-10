@@ -172,7 +172,7 @@ impl FlairAccount {
                     WalletType::Bls => {
                         let priv_key = BlsPrivate::from_bytes(&private_key)?;
                         let sig = priv_key.sign(&msg).as_bytes();
-                        let out = base64::encode(&sig);
+                        let out = base64::encode(sig);
                         Ok(out)
                     }
                     WalletType::Secp256k1 => {
@@ -185,7 +185,7 @@ impl FlairAccount {
                         new_bytes[64] = recovery_id.serialize();
 
                         let out = new_bytes.to_vec();
-                        let out = base64::encode(&out);
+                        let out = base64::encode(out);
                         Ok(out)
                     }
                 }
