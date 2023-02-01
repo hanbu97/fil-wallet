@@ -4,6 +4,8 @@ mod models;
 mod multisig;
 mod types;
 
+pub use bip39::{Language, MnemonicType};
+
 use message::get_message_cid;
 pub use models::account::{FlairAccount, FlairAddress, FlairPrivate, FlairPublic};
 pub use models::mnemonic::SecretPhrase;
