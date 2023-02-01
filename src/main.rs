@@ -1,5 +1,5 @@
 use bip39::{Language, MnemonicType};
-use flair_wallet::{FlairAccount, SecretPhrase, WalletType};
+use fil_wallet::{FlairAccount, SecretPhrase, WalletType};
 
 fn main() {
     let in_bls = "7b2254797065223a22626c73222c22507269766174654b6579223a226b434b523969566b73615a6672746b513979356e3269615862317279766d314d37637357456352313142673d227d";
@@ -55,7 +55,7 @@ mod test {
             "t3qyqntzkarnpzg66gcgotopmducfqfvvhg7ee7l6ral5xbzimhf5qrduufsxemulrb2zfjdmpdvftaljzuhva".to_string(),
             "t3sh7bfopxlxpaxhbrytc54qqwaeuytzlpfy36iuxjknjvm3ycj7ewajbnervggfoqwk4xhjdpvk54bpiesaya".to_string(),
         ];
-        let cbor = flair_wallet::create_multisig_params(addresses, 2, 0, 0);
+        let cbor = fil_wallet::create_multisig_params(addresses, 2, 0, 0);
         assert_eq!(
             r#"gtgqWCcAAVWg5AIgvGYj9BUVHYVe+BQL2aZx7bXI23BqMGTsKceSrVLKtzNYnoSDWDEDhSwOVinCv/zALyBAterrIxZMiGVyyXgpHEAWBlYL+QD9U9HGRcoXJKYeuaOxo54ZWDEDhiDZ5UCLX5N7xhGdNz2DoIsC1qc3yE+v0QL7cOUMOXsIjpQsrkZRcQ6yVI2PHUswWDEDkf4Sufdd3gucMcTF3kIWASmJ5W8uN+RS6VNTVm8CT8lgJC0kamMV0LK5c6RvqrvAAgAA"#,
             &cbor
