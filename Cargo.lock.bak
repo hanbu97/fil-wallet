@@ -740,33 +740,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "fil-wallet"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "base64",
- "blake2b_simd",
- "bls-signatures",
- "cid",
- "crypto-wallet-gen",
- "fil_actor_init_v9",
- "fil_actor_multisig_v9",
- "fil_actors_runtime_v9 9.0.3 (git+https://github.com/ChainSafe/fil-actor-states)",
- "fvm_ipld_encoding",
- "fvm_shared",
- "hex",
- "libsecp256k1",
- "num-bigint 0.2.6",
- "num-traits",
- "rand 0.8.5",
- "rust-crypto",
- "serde",
- "serde_json",
- "structopt",
- "tiny-bip39 1.0.0",
-]
-
-[[package]]
 name = "fil_actor_init_v8"
 version = "8.0.0"
 dependencies = [
@@ -945,6 +918,33 @@ dependencies = [
  "rand 0.7.3",
  "rustc-hex",
  "static_assertions",
+]
+
+[[package]]
+name = "flair-wallet"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "base64",
+ "blake2b_simd",
+ "bls-signatures",
+ "cid",
+ "crypto-wallet-gen",
+ "fil_actor_init_v9",
+ "fil_actor_multisig_v9",
+ "fil_actors_runtime_v9 9.0.3 (git+https://github.com/ChainSafe/fil-actor-states)",
+ "fvm_ipld_encoding",
+ "fvm_shared",
+ "hex",
+ "libsecp256k1",
+ "num-bigint 0.2.6",
+ "num-traits",
+ "rand 0.8.5",
+ "rust-crypto",
+ "serde",
+ "serde_json",
+ "structopt",
+ "tiny-bip39 1.0.0",
 ]
 
 [[package]]
