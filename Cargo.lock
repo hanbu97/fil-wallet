@@ -563,18 +563,16 @@ dependencies = [
  "clap",
  "failure",
  "hex",
+ "libsecp256k1",
  "rand 0.8.5",
  "rand_chacha 0.3.1",
  "rand_core 0.5.1",
  "rand_hc 0.3.1",
  "rand_jitter",
  "scrypt",
- "secp256k1 0.17.2",
- "secp256k1 0.20.3",
  "thiserror",
  "tiny-bip39 0.8.2",
  "unicode-normalization",
- "wagyu-ethereum",
  "wagyu-model",
  "wagyu-monero",
  "zeroize",
@@ -1272,16 +1270,6 @@ dependencies = [
 
 [[package]]
 name = "hmac"
-version = "0.7.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5dcb5e64cda4c23119ab41ba960d1e170a774c8e4b9d9e6a9bc18aabf5e59695"
-dependencies = [
- "crypto-mac 0.7.0",
- "digest 0.8.1",
-]
-
-[[package]]
-name = "hmac"
 version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "126888268dcc288495a26bf004b38c5fdbb31682f992c84ceb046a1f0fe38840"
@@ -1723,17 +1711,6 @@ name = "paste"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d01a5bd0424d00070b0098dd17ebca6f961a959dead1dbcbbbc1d1cd8d3deeba"
-
-[[package]]
-name = "pbkdf2"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "006c038a43a45995a9670da19e67600114740e8511d4333bf97a56e66a7542d9"
-dependencies = [
- "byteorder",
- "crypto-mac 0.7.0",
- "rayon",
-]
 
 [[package]]
 name = "pbkdf2"
@@ -2602,29 +2579,6 @@ name = "version_check"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
-
-[[package]]
-name = "wagyu-ethereum"
-version = "0.6.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aeb4d0b9427a6d31cec58d50c51022cf23261d851d79d7dde2040613eb343e97"
-dependencies = [
- "base58",
- "bitvec 0.17.4",
- "ethereum-types",
- "hex",
- "hmac 0.7.1",
- "pbkdf2 0.3.0",
- "rand 0.7.3",
- "regex",
- "rlp",
- "secp256k1 0.17.2",
- "serde",
- "serde_json",
- "sha2 0.8.2",
- "tiny-keccak 1.5.0",
- "wagyu-model",
-]
 
 [[package]]
 name = "wagyu-model"

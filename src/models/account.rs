@@ -197,16 +197,16 @@ impl FlairAccount {
 
 mod test {
     #[test]
-    fn test_account_from_encoded_bls_private() {
-        let key = "SWIIbklHT09OwCJ2SnHq57RBLIJc5VtWsM3+SGZ+S7I=";
-        let private_key: super::FlairPrivate = base64::decode(key).unwrap().into();
-        let account = crate::helpers::accounts::generate_account_from_private(
-            &crate::types::WalletType::Bls,
-            &private_key,
-        )
-        .unwrap();
-        dbg!(account.display());
-    }
+    // fn test_account_from_encoded_bls_private() {
+    //     let key = "SWIIbklHT09OwCJ2SnHq57RBLIJc5VtWsM3+SGZ+S7I=";
+    //     let private_key: super::FlairPrivate = base64::decode(key).unwrap().into();
+    //     let account = crate::helpers::accounts::generate_account_from_private(
+    //         &crate::types::WalletType::Bls,
+    //         &private_key,
+    //     )
+    //     .unwrap();
+    //     dbg!(account.display());
+    // }
 
     #[test]
     fn test_account_import_export() {

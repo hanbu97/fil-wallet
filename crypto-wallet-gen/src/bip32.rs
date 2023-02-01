@@ -1,8 +1,9 @@
 use anyhow::Result;
 use bitcoin::network::constants::Network;
+use bitcoin::secp256k1::Secp256k1;
 use bitcoin::util::bip32::ExtendedPrivKey;
 use clap::arg_enum;
-use secp256k1::Secp256k1;
+// use secp256k1::Secp256k1;
 use std::convert::TryFrom;
 use std::convert::TryInto;
 

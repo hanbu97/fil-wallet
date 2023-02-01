@@ -2,7 +2,6 @@ use crate::bip32::HDPrivKey;
 use anyhow::Result;
 
 pub mod bitcoin;
-pub mod ethereum;
 pub mod monero;
 
 pub trait Wallet: Sized {

@@ -55,6 +55,7 @@ unsigned-varint = "0.7.1"
 
 fil_actors_runtime_v8 = { path = "./fil-actor-states/runtime_v8" }
 fil_actors_runtime_v9 = { path = "./fil-actor-states/runtime_v9" }
+libsecp256k1 = "0.7.1"
 
 [dependencies]
 # utils
@@ -69,9 +70,9 @@ anyhow = "1.0.66"
 base64 = "0.13.1"
 hex = "0.4.3"
 crypto-wallet-gen = { path = "./crypto-wallet-gen" }
-libsecp256k1 = "0.7.1"
 rust-crypto = "0.2.36"
 blake2b_simd = "1.0"
+libsecp256k1 = { workspace = true }
 
 #serde
 serde = { version = "1.0.147", features = ["derive"] }
