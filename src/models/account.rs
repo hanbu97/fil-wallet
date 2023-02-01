@@ -27,7 +27,7 @@ use crate::{
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub struct FlairPrivate {
     #[serde(rename = "Type")]
-    wallet_type: Option<String>,
+    wallet_type: String,
     #[serde(rename = "PrivateKey")]
     private_key: String,
     #[serde(skip_serializing)]
@@ -37,7 +37,7 @@ pub struct FlairPrivate {
 impl From<Vec<u8>> for FlairPrivate {
     fn from(d: Vec<u8>) -> Self {
         Self {
-            wallet_type: None,
+            wallet_type: "secp256k1".to_string(),
             private_key: base64::encode(&d),
             data: d,
         }
@@ -49,7 +49,7 @@ impl FlairPrivate {
     }
 
     pub fn set_type(&mut self, wallet_type: WalletType) {
-        self.wallet_type = Some(wallet_type.to_string())
+        self.wallet_type = wallet_type.to_string()
     }
 }
 
@@ -207,7 +207,6 @@ mod test {
     //     .unwrap();
     //     dbg!(account.display());
     // }
-
     #[test]
     fn test_account_import_export() {
         let in_bls = "7b2254797065223a22626c73222c22507269766174654b6579223a226b434b523969566b73615a6672746b513979356e3269615862317279766d314d37637357456352313142673d227d";
@@ -228,4 +227,24 @@ mod test {
         assert_eq!(account.display().as_str(), "f3vtr3myof7qghg3eq75qfagbfemrhycsqypmz2t6pfwwq5m3w73wlthhbtlrnjpyjxnhwz5pxboonb3bliv6q");
         assert_eq!(out_bls.as_str(), in_bls);
     }
+
+    #[test]
+    fn test_account_import_export1() {
+        let in_scep = "7b2254797065223a6e756c6c2c22507269766174654b6579223a22674935796e756f61442b695a6534336b556a32454947594d57715462516d4b682f59632b38572b494570383d227d";
+        let account = super::FlairAccount::import(in_scep).unwrap();
+        dbg!(account.display());
+    }
+
+    #[test]
+    fn test_account_import_export2() {
+        let in_scep = "7b2254797065223a22626c73222c22507269766174654b6579223a225a55674656777a6f6d4335625143454e6c7a47366a6b7448384b456f5079457241624745685965656b686b3d227d";
+        let account = super::FlairAccount::import(in_scep).unwrap();
+        dbg!(account.display());
+    }
 }
+
+// secret_phrase: sunny deposit addict vendor female glory bacon wrong circle online globe gallery
+// Secp256k1 account: f1qhhf5himqr22p65jfukcdx2tuatbdhwwevh2tqq
+// Secp256k1 private key: 7b2254797065223a6e756c6c2c22507269766174654b6579223a22674935796e756f61442b695a6534336b556a32454947594d57715462516d4b682f59632b38572b494570383d227d
+// Bls account: f3v4dieqfncaitinfydqivf47fppo3iyz5o3hx2ko6hfqb62j7tnjnhyz2u6mtvcd6erqrda3762murcmcw7na
+// Bls private key: 7b2254797065223a22626c73222c22507269766174654b6579223a225a55674656777a6f6d4335625143454e6c7a47366a6b7448384b456f5079457241624745685965656b686b3d227d

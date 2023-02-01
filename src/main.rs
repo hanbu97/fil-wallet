@@ -46,6 +46,17 @@ fn test_signature() {
     assert_eq!("iKKZhRQkg2qQ8fWWIMFFHjJSAWaOgIkvVSAJ4aZ0pL2fPeMOsSzOoqqfE9mj/qtCDAfeDWCgvVzTwVvSNNt5jL+LPwSSGinfHtO01urO0vuOq2EUCVcgH57ftzf5SAJT",&signature);
 }
 
+#[test]
+fn test_new_wallet() {
+    let in_bls = "7b2254797065223a6e756c6c2c22507269766174654b6579223a227638485369577245774a4977735837757a615345414259347456676e79644641422f454a5533764a682f303d227d";
+    let account = FlairAccount::import(in_bls).unwrap();
+    // let cid_string = "bafy2bzacec6m3lsogelnttnn4ck7dr35zpyuynqaliiqycx4zraqmqmjebc36".to_string();
+
+    // let signature = account.sign(cid_string).unwrap();
+    // assert_eq!("iKKZhRQkg2qQ8fWWIMFFHjJSAWaOgIkvVSAJ4aZ0pL2fPeMOsSzOoqqfE9mj/qtCDAfeDWCgvVzTwVvSNNt5jL+LPwSSGinfHtO01urO0vuOq2EUCVcgH57ftzf5SAJT",&signature);
+}
+
+
 //
 mod test {
     #[test]

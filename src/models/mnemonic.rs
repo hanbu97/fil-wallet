@@ -68,9 +68,11 @@ fn test_generate_account() {
         .derive_account(WalletType::Secp256k1, None)
         .unwrap();
     println!("Secp256k1 account: {}", account_secp.display());
+    println!("Secp256k1 private key: {}", account_secp.export().unwrap());
 
     let account_bls = secret_phrase.derive_account(WalletType::Bls, None).unwrap();
     println!("Bls account: {}", account_bls.display());
+    println!("Bls private key: {}", account_bls.export().unwrap());
 
     // secret_phrase: betray ribbon visit topple release angle inspire soul private bottom face buddy
     // Secp256k1 account: f1ihd67zlxq6zbvbtnox4xsjn6htps34ys3mfjv6a

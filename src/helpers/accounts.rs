@@ -96,6 +96,7 @@ pub fn generate_account_from_private(
 
 pub fn parse_private_key_string(key: &str) -> anyhow::Result<FlairAccount> {
     let decoded_key: serde_json::Value = serde_json::from_str(key)?;
+    dbg!(&decoded_key);
 
     let rtype = decoded_key
         .get("Type")
