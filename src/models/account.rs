@@ -242,9 +242,3 @@ mod test {
         dbg!(account.display());
     }
 }
-
-// secret_phrase: sunny deposit addict vendor female glory bacon wrong circle online globe gallery
-// Secp256k1 account: f1qhhf5himqr22p65jfukcdx2tuatbdhwwevh2tqq
-// Secp256k1 private key: 7b2254797065223a6e756c6c2c22507269766174654b6579223a22674935796e756f61442b695a6534336b556a32454947594d57715462516d4b682f59632b38572b494570383d227d
-// Bls account: f3v4dieqfncaitinfydqivf47fppo3iyz5o3hx2ko6hfqb62j7tnjnhyz2u6mtvcd6erqrda3762murcmcw7na
-// Bls private key: 7b2254797065223a22626c73222c22507269766174654b6579223a225a55674656777a6f6d4335625143454e6c7a47366a6b7448384b456f5079457241624745685965656b686b3d227d

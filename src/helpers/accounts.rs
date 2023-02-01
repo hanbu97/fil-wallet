@@ -96,14 +96,6 @@ pub fn generate_account_from_private(
 
 pub fn parse_private_key_string(key: &str) -> anyhow::Result<FlairAccount> {
     let decoded_key: serde_json::Value = serde_json::from_str(key)?;
-    dbg!(&decoded_key);
-
-    let rtype = decoded_key
-        .get("Type")
-        .context("Private key format error!")?
-        .as_str()
-        .context("Private key format error!")?
-        .trim();
 
     let pkey = decoded_key
         .get("PrivateKey")
@@ -112,11 +104,24 @@ pub fn parse_private_key_string(key: &str) -> anyhow::Result<FlairAccount> {
         .context("Private key format error!")?
         .trim();
 
-    let wallet_type = match rtype {
-        "secp256k1" => WalletType::Secp256k1,
-        "bls" => WalletType::Bls,
-        _ => return Err(anyhow::anyhow!("Private key format error!")),
+    let wallet_type = match decoded_key.get("Type") {
+        Some(t) if t.to_string().trim() != "null" => {
+            let tt = t.to_string();
+            if tt.contains("bls") {
+                WalletType::Bls
+            } else {
+                return Err(anyhow::anyhow!("Private key format error!"));
+            }
+        }
+        _ => WalletType::Secp256k1,
     };
+    dbg!(&wallet_type);
+
+    // let wallet_type = match rtype.as_str() {
+    //     "secp256k1" => WalletType::Secp256k1,
+    //     "bls" => WalletType::Bls,
+    //     _ => return Err(anyhow::anyhow!("Private key format error!")),
+    // };
 
     let mut private_key: FlairPrivate = base64::decode(pkey)?.into();
     private_key.set_type(wallet_type);
