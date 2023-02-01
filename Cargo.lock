@@ -573,7 +573,6 @@ dependencies = [
  "thiserror",
  "tiny-bip39 0.8.2",
  "unicode-normalization",
- "wagyu-model",
  "wagyu-monero",
  "zeroize",
 ]
