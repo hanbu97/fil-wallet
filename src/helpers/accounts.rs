@@ -97,6 +97,8 @@ pub fn generate_account_from_private(
 pub fn parse_private_key_string(key: &str) -> anyhow::Result<FlairAccount> {
     let decoded_key: serde_json::Value = serde_json::from_str(key)?;
 
+    dbg!(&decoded_key);
+
     let pkey = decoded_key
         .get("PrivateKey")
         .context("Private key format error!")?
@@ -109,6 +111,8 @@ pub fn parse_private_key_string(key: &str) -> anyhow::Result<FlairAccount> {
             let tt = t.to_string();
             if tt.contains("bls") {
                 WalletType::Bls
+            } else if tt.contains("secp256k1") {
+                WalletType::Secp256k1
             } else {
                 return Err(anyhow::anyhow!("Private key format error!"));
             }
