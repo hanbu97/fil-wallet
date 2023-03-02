@@ -16,10 +16,6 @@ description = "This is a utility to generate seed phrases and to generate crypto
 name = "crypto_wallet_gen"
 path = "src/lib.rs"
 
-[[bin]]
-name = "crypto-wallet-gen"
-path = "src/main.rs"
-
 [dependencies]
 anyhow = "^1.0.40"
 bitcoin = "^0.26.0"
