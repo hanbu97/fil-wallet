@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = [".", "./crypto-wallet-gen", "fil-actor-states/runtime_v9"]
+members = [".", "./crypto-wallet-gen"]
 
 [workspace.dependencies]
 anyhow = "1.0"
@@ -44,7 +44,7 @@ sha2 = "0.10.5"
 thiserror = "1.0"
 unsigned-varint = "0.7.1"
 
-fil_actors_runtime_v9 = { path = "./fil-actor-states/runtime_v9" }
+# fil_actors_runtime_v9 = { path = "./fil-actor-states/runtime_v9" }
 libsecp256k1 = "0.7.1"
 
 [dependencies]
@@ -75,7 +75,6 @@ structopt = "0.3.26"
 fvm_shared = "2.0.0"
 # fvm_shared = { git = "https://github.com/filecoin-project/ref-fvm.git", package = "fvm_shared"}
 bls-signatures = "0.13.0"
-fil_actors_runtime_v9 = { git = "https://github.com/ChainSafe/fil-actor-states" }
 # bitcoin
 tiny-bip39 = "1.0.0"
 # cid = "0.10.0"
