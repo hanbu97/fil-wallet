@@ -11,7 +11,6 @@ use fvm_shared::sector::RegisteredSealProof;
 pub use self::policy::*;
 pub use self::randomness::DomainSeparationTag;
 
-pub mod policy;
 mod randomness;
 
 /// Message information available to the actor about executing message.
