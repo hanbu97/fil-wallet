@@ -32,7 +32,7 @@ pub trait MessageInfo {
 }
 
 /// Pure functions implemented as primitives by the runtime.
-pub trait Primitives {
+pub(crate) trait Primitives {
     /// Hashes input data using blake2b with 256 bit output.
     fn hash_blake2b(&self, data: &[u8]) -> [u8; 32];
 
