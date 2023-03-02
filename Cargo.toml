@@ -7,9 +7,7 @@ edition = "2021"
 members = [
     ".",
     "./crypto-wallet-gen",
-    "fil-actor-states/runtime_v8",
     "fil-actor-states/runtime_v9",
-    "fil-actor-states/multisig_v8",
     "fil-actor-states/multisig_v9",
     "fil-actor-states/init_v9",
 ]
@@ -52,7 +50,6 @@ sha2 = "0.10.5"
 thiserror = "1.0"
 unsigned-varint = "0.7.1"
 
-fil_actors_runtime_v8 = { path = "./fil-actor-states/runtime_v8" }
 fil_actors_runtime_v9 = { path = "./fil-actor-states/runtime_v9" }
 libsecp256k1 = "0.7.1"
 
