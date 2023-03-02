@@ -1,9 +1,16 @@
 use std::str::FromStr;
 
-use fil_actor_init_v9::ExecParams;
-use fvm_shared::{address::Address, clock::ChainEpoch};
+use cid::Cid;
+use fvm_ipld_encoding::tuple::*;
+use fvm_ipld_encoding::RawBytes;
+#[derive(Serialize_tuple, Deserialize_tuple)]
+pub struct ExecParams {
+    pub code_cid: Cid,
+    pub constructor_params: RawBytes,
+}
 
 use fil_actor_multisig_v9::ConstructorParams;
+use fvm_shared::{address::Address, clock::ChainEpoch};
 
 // return params string
 pub fn create_multisig_params(
