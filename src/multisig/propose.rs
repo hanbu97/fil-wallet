@@ -1,7 +1,18 @@
 use std::str::FromStr;
 
-use fil_actor_multisig_v9::ProposeParams;
+use fvm_ipld_encoding::tuple::*;
+use fvm_ipld_encoding::RawBytes;
+use fvm_shared::address::Address;
 use fvm_shared::econ::TokenAmount;
+use fvm_shared::MethodNum;
+/// Propose method call parameters.
+#[derive(Serialize_tuple, Deserialize_tuple)]
+pub struct ProposeParams {
+    pub to: Address,
+    pub value: TokenAmount,
+    pub method: MethodNum,
+    pub params: RawBytes,
+}
 
 // return params string
 pub fn propose_multisig_params(

@@ -9,7 +9,16 @@ pub struct ExecParams {
     pub constructor_params: RawBytes,
 }
 
-use fil_actor_multisig_v9::ConstructorParams;
+/// Constructor parameters for multisig actor.
+#[derive(Serialize_tuple, Deserialize_tuple)]
+pub struct ConstructorParams {
+    pub signers: Vec<Address>,
+    pub num_approvals_threshold: u64,
+    pub unlock_duration: ChainEpoch,
+    // * Added in v2
+    pub start_epoch: ChainEpoch,
+}
+
 use fvm_shared::{address::Address, clock::ChainEpoch};
 
 // return params string
