@@ -3,14 +3,10 @@
 
 use cid::Cid;
 use fvm_shared::address::Address;
-use fvm_shared::consensus::ConsensusFault;
 use fvm_shared::crypto::signature::Signature;
 use fvm_shared::econ::TokenAmount;
 use fvm_shared::piece::PieceInfo;
-use fvm_shared::sector::{
-    AggregateSealVerifyProofAndInfos, RegisteredSealProof, ReplicaUpdateInfo, SealVerifyInfo,
-    WindowPoStVerifyInfo,
-};
+use fvm_shared::sector::RegisteredSealProof;
 
 pub use self::policy::*;
 pub use self::randomness::DomainSeparationTag;
