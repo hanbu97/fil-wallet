@@ -8,6 +8,7 @@ pub(crate) fn string_to_tokenamount(value: &str) -> TokenAmount {
     TokenAmount::from_atto(value)
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn get_message_cid(
     from: String,
     to: String,
