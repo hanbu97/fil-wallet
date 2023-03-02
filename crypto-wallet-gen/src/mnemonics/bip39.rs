@@ -1,6 +1,5 @@
 use anyhow::Result;
 use bip39::{Language, Mnemonic as _Mnemonic, Seed as _Seed};
-use rand::RngCore;
 
 use super::{Mnemonic, MnemonicFactory};
 use crate::bip32::HDPrivKey;

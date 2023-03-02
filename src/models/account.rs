@@ -196,7 +196,7 @@ impl FlairAccount {
 }
 
 mod test {
-    #[test]
+    // #[test]
     // fn test_account_from_encoded_bls_private() {
     //     let key = "SWIIbklHT09OwCJ2SnHq57RBLIJc5VtWsM3+SGZ+S7I=";
     //     let private_key: super::FlairPrivate = base64::decode(key).unwrap().into();

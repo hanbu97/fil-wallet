@@ -1,21 +1,10 @@
 use anyhow::Result;
-use rand::rngs::adapter::ReseedingRng;
-use rand::rngs::OsRng;
-use rand::{thread_rng, Rng, RngCore, SeedableRng};
-use rand_chacha::ChaCha20Core;
-use rand_hc::Hc128Core;
-use rand_jitter::JitterRng;
+use rand::RngCore;
 use zeroize::Zeroize;
 
 pub struct CompositeRng<Rng1: RngCore, Rng2: RngCore> {
     rng1: Rng1,
     rng2: Rng2,
-}
-
-impl<Rng1: RngCore, Rng2: RngCore> CompositeRng<Rng1, Rng2> {
-    pub fn new(rng1: Rng1, rng2: Rng2) -> Self {
-        Self { rng1, rng2 }
-    }
 }
 
 impl<Rng1: RngCore, Rng2: RngCore> RngCore for CompositeRng<Rng1, Rng2> {
@@ -120,15 +109,4 @@ impl<R: rand_core_5::RngCore> RngCore for RandCore5Wrapper<R> {
         rand_core_5::RngCore::try_fill_bytes(&mut self.0, dest)
             .map_err(|err| rand::Error::new(err.take_inner()))
     }
-}
-
-fn jitter_rng() -> impl RngCore {
-    fn get_nstime() -> u64 {
-        use std::time::{SystemTime, UNIX_EPOCH};
-
-        let dur = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-        dur.as_secs() * 1_000_000_000 + dur.subsec_nanos() as u64
-    }
-
-    RandCore5Wrapper(JitterRng::new_with_timer(get_nstime))
 }
