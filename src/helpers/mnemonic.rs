@@ -1,8 +1,9 @@
 use bip39::{Mnemonic, Seed};
-use crypto::{digest::Digest, sha2::Sha256};
+// use crypto::{digest::Digest, sha2::Sha256};
 use crypto_wallet_gen::{Bip39Mnemonic, Bip44DerivationPath, MnemonicFactory};
 use num_bigint::BigUint;
 use num_traits::{FromPrimitive, Num, Pow};
+use sha2::{Digest, Sha256};
 
 use crate::{
     helpers::accounts::generate_account_from_private, types::WalletType, FlairAccount, FlairPrivate,
@@ -20,12 +21,9 @@ pub fn derive_master_key(seed: &[u8]) -> anyhow::Result<Vec<u8>> {
 }
 
 fn hkdf(ikm: &[u8], salt: &[u8], info: &[u8], okm: &mut [u8]) {
-    use crypto::hkdf::{hkdf_expand, hkdf_extract};
-    let mut digest = Sha256::new();
-    digest.reset();
-    let prk: &mut [u8] = &mut [0u8; 32];
-    hkdf_extract(digest, salt, ikm, prk);
-    hkdf_expand(digest, prk, info, okm);
+    use hkdf::Hkdf;
+    let hk = Hkdf::<Sha256>::new(Some(&salt[..]), &ikm);
+    hk.expand(&info, okm).unwrap();
 }
 
 pub fn hkdf_mod_r(ikm: &[u8]) -> Vec<u8> {
@@ -35,9 +33,11 @@ pub fn hkdf_mod_r(ikm: &[u8]) -> Vec<u8> {
     let salt = "BLS-SIG-KEYGEN-SALT-".as_bytes().to_vec();
     let mut hasher = Sha256::new();
     hasher.reset();
-    hasher.input(&salt);
-    let mut result: Vec<u8> = vec![0; hasher.output_bytes()];
-    hasher.result(&mut result);
+    hasher.update(&salt);
+    // let mut result: Vec<u8> = vec![0; hasher.output_bytes()];
+    // hasher.result(&mut result);
+
+    let result = hasher.finalize();
     let salt = result;
     // let salt = &result[..];
 
@@ -85,20 +85,26 @@ fn parent_sk_to_lamport_pk(ikm: &[u8], index: u32) -> Vec<u8> {
     combined[..NUM_DIGESTS].clone_from_slice(&lamport_0[..NUM_DIGESTS]);
     combined[NUM_DIGESTS..NUM_DIGESTS * 2].clone_from_slice(&lamport_1[..NUM_DIGESTS]);
 
-    let mut sha256 = Sha256::new();
     let mut flattened_key = [0u8; OUTPUT_SIZE * 2];
     for i in 0..NUM_DIGESTS * 2 {
-        let sha_slice = &mut combined[i];
-        sha256.input(sha_slice);
-        sha256.result(sha_slice);
-        sha256.reset();
-        flattened_key[i * DIGEST_SIZE..(i + 1) * DIGEST_SIZE].clone_from_slice(sha_slice);
-    }
+        let mut sha256 = Sha256::new();
+        let sha_slice = combined[i].clone();
+        // sha256.input(sha_slice);
+        // sha256.result(sha_slice);
 
-    sha256.input(&flattened_key);
-    let cmp_pk: &mut [u8] = &mut [0u8; DIGEST_SIZE];
-    sha256.result(cmp_pk);
-    cmp_pk.to_vec()
+        sha256.update(sha_slice);
+        let result = sha256.finalize();
+        combined[i].clone_from_slice(&result[..DIGEST_SIZE]);
+
+        flattened_key[i * DIGEST_SIZE..(i + 1) * DIGEST_SIZE].clone_from_slice(&result);
+    }
+    let mut sha256 = Sha256::new();
+    // sha256.input(&flattened_key);
+    sha256.update(&flattened_key);
+    // let cmp_pk: &mut [u8] = &mut [0u8; DIGEST_SIZE];
+    // sha256.result(cmp_pk);
+    // cmp_pk.to_vec()
+    sha256.finalize().to_vec()
 }
 
 pub fn derive_child_sk(ikm: &[u8], index: u32) -> Vec<u8> {
