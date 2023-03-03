@@ -60,7 +60,6 @@ anyhow = "1.0.66"
 base64 = "0.13.1"
 hex = "0.4.3"
 crypto-wallet-gen = { path = "./crypto-wallet-gen" }
-# rust-crypto = "0.2.36"
 sha2 = "0.10.6"
 hkdf = "0.12.3"
 
