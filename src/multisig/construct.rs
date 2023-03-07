@@ -44,7 +44,7 @@ pub fn create_multisig_params(
     };
     let msig_params_bytes = fvm_ipld_encoding::to_vec(&msig_params).unwrap();
 
-    let cid: cid::Cid = "bafk2bzacec6gmi7ucukr3bk67akaxwngohw3lsg3obvdazhmfhdzflkszk3tg"
+    let cid: cid::Cid = "bafk2bzacebv5gdlte2pyovmz6s37me6x2rixaa6a33w6lgqdohmycl23snvwm"
         .to_string()
         .parse()
         .unwrap();
